@@ -240,7 +240,7 @@ class Graph:
         Returns a Hamiltonian circuit of type Walk for the graph if one exists,
         or None if none exists.
         """
-        if not self.isConnected():
+        if not self.isConnected() or self.totalVertices() < 3:
             return None
         walk = Walk(self.totalVertices()+1)
         walk.addVertex(0)
@@ -271,14 +271,12 @@ class Graph:
                 Hamiltonian.addVertex(0)
                 return True
             return False
-
         else:
             for i in range(1,self.totalVertices()):
                 if self.edges[vertex][i] != 0 and i not in Hamiltonian.getVertices():
                     Hamiltonian.addVertex(i)
                     if self.tryVisiting(i, totalvisited + 1, Hamiltonian):
                         return True
-                    
                     Hamiltonian.removeLastVertex()
         return False
     
