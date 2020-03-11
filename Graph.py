@@ -242,9 +242,9 @@ class Graph:
         """
         if not self.isConnected():
             return None
-        walk = Walk(self.totalVertices())
+        walk = Walk(self.totalVertices()+1)
         walk.addVertex(0)
-        if self.tryVisiting(1, 1, walk):
+        if self.tryVisiting(0, 1, walk):
             return walk
         return None
     
@@ -259,7 +259,7 @@ class Graph:
             int totalvisited: total number of vertices visited so far
             Walk Hamiltonian: Hamiltonian Walk built so far
 
-        Side Effects:
+        Side Effects
             Hamiltonian is modified
 
         Returns True iff a Hamiltonian circuit has been found and False otherwise
@@ -268,6 +268,7 @@ class Graph:
             if Hamiltonian.isTrivial():
                 return False
             if self.edges[vertex][0] != 0:
+                Hamiltonian.addVertex(0)
                 return True
             return False
 
